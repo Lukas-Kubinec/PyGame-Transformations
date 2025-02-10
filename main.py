@@ -14,7 +14,7 @@ viewport = pg.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pg.display.set_icon(pg.image.load('assets/icon.png'))
 pg.display.set_caption('Transformations')
 
-# Line object
+# Line vector object
 Line_pointA = [100,50]
 Line_pointB = [150,50]
 
