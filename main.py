@@ -32,16 +32,11 @@ def scale(ax, ay, bx, by, scale_by):
 
     result = vector_ab.dot(scale_by)
 
-    #vector_aby = np.transpose(ay,by) * scale_by
-
-    #scaled_a = [ax - vector_abx, ay - vector_aby]
-    #scaled_b = [bx + vector_abx, by + vector_aby]
-
-    #result = [scaled_a , scaled_b]
     print(result)
     return result
 
 def rotate(ax, ay, bx, by, angle):
+    pos = [[ax, ay], [bx, by]]
     angle_cos = math.cos(angle * math.pi / 180)
     angle_sin = math.sin(angle * math.pi / 180)
     r1 = [[angle_cos, -angle_sin], [angle_sin, angle_cos]]
