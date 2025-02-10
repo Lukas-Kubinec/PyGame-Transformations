@@ -25,7 +25,7 @@ def translate(points_current, move_by_vector):
     print(new_points)
     return new_points
 
-# Scaling from origin
+# Scaling from origin WIP!!!
 def scale(ax, ay, bx, by, scale_by):
     a = [[ax, ay], [bx, by]]
     vector_ab = np.transpose(a)
@@ -35,6 +35,7 @@ def scale(ax, ay, bx, by, scale_by):
     print(result)
     return result
 
+# Rotate WIP!!!
 def rotate(ax, ay, bx, by, angle):
     pos = [[ax, ay], [bx, by]]
     angle_cos = math.cos(angle * math.pi / 180)
