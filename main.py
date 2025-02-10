@@ -1,5 +1,6 @@
 import numpy as np
 import pygame as pg
+import math
 
 # Initialisation of Pygame library
 pg.init()
@@ -26,16 +27,26 @@ def translate(points_current, move_by_vector):
 
 # Scaling from origin
 def scale(ax, ay, bx, by, scale_by):
-    vector_abx = np.transpose(np.dot(ax,bx), scale_by)
-    vector_aby = np.transpose(np.dot(ay,by), scale_by)
+    a = [[ax, ay], [bx, by]]
+    vector_ab = np.transpose(a)
 
-    scaled_a = [ax + vector_abx, ay + vector_aby]
-    scaled_b = [bx + vector_abx, by + vector_aby]
+    result = vector_ab.dot(scale_by)
 
-    result = [scaled_a , scaled_b]
+    #vector_aby = np.transpose(ay,by) * scale_by
+
+    #scaled_a = [ax - vector_abx, ay - vector_aby]
+    #scaled_b = [bx + vector_abx, by + vector_aby]
+
+    #result = [scaled_a , scaled_b]
     print(result)
     return result
 
+def rotate(ax, ay, bx, by, angle):
+    angle_cos = math.cos(angle * math.pi / 180)
+    angle_sin = math.sin(angle * math.pi / 180)
+    r1 = [[angle_cos, -angle_sin], [angle_sin, angle_cos]]
+    xxx = np.dot(r1, [[ax, ay], [bx, by]])
+    return xxx
 
 # Running loop
 while True:
@@ -44,14 +55,24 @@ while True:
         viewport.fill((255, 255, 255))
 
         # INPUT events
-        if event.type == pg.QUIT:
+        if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
+            pg.display.quit()
             pg.quit()
+
+        if event.type == pg.KEYDOWN and event.key == pg.K_UP:
+            pg.display.toggle_fullscreen()
 
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1:
                 print("Points moved")
                 Line_pointA = translate(Line_pointA, (-1,-2.5))
                 Line_pointB = translate(Line_pointB, (1, 2.5))
+
+            if event.button == 2:
+                print("Points rotated")
+                rotator = rotate(Line_pointA[0],Line_pointA[1],Line_pointB[0],Line_pointB[1], 10)
+                Line_pointA = rotator[0]
+                Line_pointB = rotator[1]
 
             if event.button == 3:
                 print("Points scaled")
